@@ -22,7 +22,35 @@ class AuthServises {
         }
     }
 
+    async login(candidate) {
+        try {
+            const {email, password} = candidate
+            const userInDB = await User.findOne({email: email})
+            if (!userInDB) {
+                return {isEnter: false}
+            }
 
+            const isMatch = await bcrypt.compare(password, userInDB.password)
+            if (!isMatch) {
+                return {isEnter: false}
+            }
+
+            const token = jwt.sign(
+                {userID: userInDB.id},
+                config.get('jwtSecret'),
+                {expiresIn: '1h'}
+            )
+
+            return {
+                isEnter: true,
+                token,
+                id: userInDB.id
+            }
+
+        } catch (e) {
+            return {isEnter: false}
+        }
+    }
 }
 
 export default new AuthServises()

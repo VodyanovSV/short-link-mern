@@ -21,6 +21,24 @@ class AuthControllers {
         }
     }
 
+    async login(req, res) {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array(),
+                message: 'Некорректные данные при входе в систему'
+            })
+        }
+
+        const candidate = {email: req.body.email, password: req.body.password}
+        const enter = await authServises.login(candidate)
+
+        if (enter.isEnter) {
+            res.json({token: enter.token, userId: enter.id})
+        } else {
+            res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})
+        }
+    }
 }
 
 export default new AuthControllers()
