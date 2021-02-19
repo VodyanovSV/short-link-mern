@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './AuthPage.module.scss'
+import {useHttp} from "../../hooks/http.hook";
 
 
 export const AuthPage = () => {
 	
+	const {loading, request, error, clearError} = useHttp()
 	const [form, setForm] = useState({email: '', password: ''})
 
     const changeHandler = (event) => {
@@ -12,6 +14,16 @@ export const AuthPage = () => {
             [event.target.name]: event.target.value
         })
     }	
+	
+	const registerHandler = async () => {
+        try {
+            const data = await request('/api/auth/register', 'POST', {...form})
+            message(data.message)
+        } catch (e) {
+
+        }
+    }
+	
 	
 	return (
         <div className='row'>
