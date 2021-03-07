@@ -2,12 +2,14 @@ import express from 'express'
 import mongoose from 'mongoose'
 import config from 'config'
 import authRouter from './routes/auth.routes.js'
+import linkRouter from './routes/link.routes.js'
 
 const app = express()
 
 app.use(express.json({extended: true}))
 
 app.use('/api/auth', authRouter)
+app.use('/api/link', linkRouter)
 
 const PORT = config.get('port') || 5000
 
