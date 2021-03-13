@@ -2,4 +2,5 @@
   "port": 5000,
   "mongoUri": "mongodb://localhost/test-short-link",
   "jwtSecret": "some secret string",
+  "baseUrl": "http://localhost:5000"
 }
