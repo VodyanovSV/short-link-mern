@@ -1,0 +1,22 @@
+.myInputField {
+
+  margin-top: 50px;
+
+  label.myStyleLable {
+    //color: #ffffff;
+  }
+
+  input.myStyleInput {
+    //border-bottom: 1px solid #ffffff;
+    //box-shadow: 0 1px 0 0 #ffffff;
+
+    &:focus {
+      border-bottom: 1px solid #ffeb3b !important;
+      box-shadow: 0 1px 0 0 #ffeb3b !important;
+
+      + label {
+        color: #ffeb3b !important;
+      }
+    }
+  }
+}
