@@ -29,7 +29,8 @@ class LinkControllers {
 
     async getAll(req, res) {
         try {
-
+			const links = await Link.find({owner: req.user.userID})
+            res.json(links)
         } catch (e) {
             res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})
         }
@@ -37,7 +38,8 @@ class LinkControllers {
 
     async getById(req, res) {
         try {
-
+			const link = await Link.findById(req.params.id)
+            res.json(link)
         } catch (e) {
             res.status(500).json({message: "Что-то пошло не так, попробуйте снова"})
         }
